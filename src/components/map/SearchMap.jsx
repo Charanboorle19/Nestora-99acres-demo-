@@ -157,7 +157,7 @@ export default function SearchMap({
       <MapContainer
         center={center}
         zoom={12}
-        className="h-full min-h-[320px] w-full"
+        className="h-full min-h-80 w-full"
         scrollWheelZoom
       >
         <TileLayer

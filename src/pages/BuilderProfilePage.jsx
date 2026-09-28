@@ -55,7 +55,7 @@ export default function BuilderProfilePage() {
   return (
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
       <Card className="overflow-hidden p-0">
-        <div className="bg-gradient-to-br from-ink to-ink-soft px-6 py-10 text-white">
+        <div className="bg-linear-to-br from-ink to-ink-soft px-6 py-10 text-white">
           <div className="flex flex-wrap items-start gap-4">
             <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/10">
               <Building2 className="h-8 w-8 text-amber" />

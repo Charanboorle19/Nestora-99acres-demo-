@@ -92,7 +92,7 @@ export default function SearchBar({
         className={cn('mt-3 grid gap-2', compact ? 'sm:grid-cols-[9rem_1fr_auto]' : 'sm:grid-cols-[10rem_1fr_auto]')}
       >
         <select
-          className="h-12 rounded-xl border border-border bg-white px-3 text-sm font-semibold outline-none"
+          className="h-12 w-full rounded-xl border border-border bg-white px-3 text-sm font-semibold outline-none"
           value={cityId}
           onChange={(e) => {
             onCityChange?.(e.target.value)
@@ -106,14 +106,14 @@ export default function SearchBar({
           ))}
         </select>
 
-        <div className="relative">
+        <div className="relative min-w-0">
           <div className="flex min-h-12 flex-wrap items-center gap-1 rounded-xl border border-border bg-white px-2 py-1.5 focus-within:border-ink">
             {selectedLocalities.map((id) => (
               <span
                 key={id}
-                className="inline-flex items-center gap-1 rounded-lg bg-mist px-2 py-1 text-xs font-semibold text-ink"
+                className="inline-flex max-w-full items-center gap-1 rounded-lg bg-mist px-2 py-1 text-xs font-semibold text-ink"
               >
-                {localityLabel(id)}
+                <span className="truncate">{localityLabel(id)}</span>
                 <button
                   type="button"
                   aria-label={`Remove ${localityLabel(id)}`}
@@ -124,7 +124,7 @@ export default function SearchBar({
               </span>
             ))}
             <input
-              className="min-w-[8rem] flex-1 border-0 bg-transparent px-2 py-1.5 text-sm outline-none"
+              className="min-w-0 flex-1 border-0 bg-transparent px-2 py-1.5 text-sm outline-none sm:min-w-32"
               placeholder={selectedLocalities.length ? 'Add another locality…' : 'Locality, project or builder'}
               value={query}
               onChange={(e) => {
@@ -133,7 +133,7 @@ export default function SearchBar({
               }}
               onFocus={() => setOpen(true)}
             />
-            <Search className="mr-1 h-4 w-4 text-ink-muted" />
+            <Search className="mr-1 hidden h-4 w-4 shrink-0 text-ink-muted sm:block" />
           </div>
 
           {showPanel && (
@@ -195,7 +195,7 @@ export default function SearchBar({
           )}
         </div>
 
-        <Button type="submit" size="lg" className="h-12">
+        <Button type="submit" size="lg" className="h-12 w-full sm:w-auto">
           Search
         </Button>
       </form>

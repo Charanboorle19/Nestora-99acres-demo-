@@ -11,7 +11,7 @@ export default function Logo({ className, markOnly = false }) {
         <circle cx="32" cy="34" r="4" fill="#0B3D5C" />
       </svg>
       {!markOnly && (
-        <span className="font-display text-2xl font-semibold tracking-tight text-ink">
+        <span className="font-display text-xl font-semibold tracking-tight text-ink sm:text-2xl">
           {BRAND.name}
         </span>
       )}

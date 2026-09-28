@@ -65,18 +65,18 @@ export default function HomePage() {
               'linear-gradient(120deg, rgba(11,61,92,0.92) 0%, rgba(11,61,92,0.72) 45%, rgba(11,61,92,0.45) 100%), url(https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1800&q=80)',
           }}
         />
-        <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24">
+        <div className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-24">
           <p className="font-display text-4xl font-semibold tracking-tight text-white sm:text-6xl">
             {BRAND.name}
           </p>
-          <h1 className="mt-3 max-w-xl text-balance text-xl font-medium text-white/90 sm:text-2xl">
+          <h1 className="mt-3 max-w-xl text-balance text-lg font-medium text-white/90 sm:text-2xl">
             {BRAND.tagline}
           </h1>
           <p className="mt-3 max-w-lg text-sm text-white/70">
             Search buy, rent, PG and new projects across Hyderabad, Bengaluru, Mumbai, Pune and Delhi NCR.
           </p>
 
-          <Card className="mt-8 max-w-4xl overflow-hidden border-0 p-3 sm:p-4">
+          <Card className="mt-6 max-w-4xl overflow-visible border-0 p-3 sm:mt-8 sm:p-4">
             <SearchBar
               tab={tab}
               onTabChange={setTab}
@@ -105,9 +105,19 @@ export default function HomePage() {
             View all <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {loading && Array.from({ length: 6 }).map((_, i) => <ListingCardSkeleton key={i} />)}
-          {!loading && featured.map((item) => <ListingCard key={item.id} listing={item} />)}
+        <div className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-2 scrollbar-thin sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-4 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-3">
+          {loading &&
+            Array.from({ length: 6 }).map((_, i) => (
+              <div key={i} className="w-[min(16.5rem,78vw)] shrink-0 sm:w-auto sm:shrink">
+                <ListingCardSkeleton />
+              </div>
+            ))}
+          {!loading &&
+            featured.map((item) => (
+              <div key={item.id} className="w-[min(16.5rem,78vw)] shrink-0 sm:w-auto sm:shrink">
+                <ListingCard listing={item} />
+              </div>
+            ))}
         </div>
       </section>
 
@@ -115,16 +125,16 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <h2 className="font-display text-2xl font-semibold text-ink">Popular localities</h2>
           <p className="text-sm text-ink-muted">In {CITIES.find((c) => c.id === cityId)?.name}</p>
-          <div className="mt-6 grid gap-3 sm:grid-cols-2 md:grid-cols-3">
+          <div className="-mx-4 mt-6 flex gap-3 overflow-x-auto px-4 pb-2 scrollbar-thin sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-3 sm:overflow-visible sm:px-0 sm:pb-0 md:grid-cols-3">
             {popular.map((l) => (
               <Link
                 key={l.id}
                 to={`/search?city=${cityId}&locality=${l.id}`}
-                className="rounded-2xl border border-border bg-white p-4 shadow-soft transition hover:border-ink/30"
+                className="w-[min(15rem,75vw)] shrink-0 rounded-2xl border border-border bg-white p-4 shadow-soft transition hover:border-ink/30 sm:w-auto sm:shrink"
               >
                 <div className="flex items-center gap-2 font-bold text-ink">
-                  <MapPin className="h-4 w-4 text-amber" />
-                  {l.name}
+                  <MapPin className="h-4 w-4 shrink-0 text-amber" />
+                  <span className="truncate">{l.name}</span>
                 </div>
                 <div className="mt-1 text-sm text-ink-muted">
                   Avg {formatINR(l.avgPricePerSqft)}/sq.ft · {l.listingCount} homes
@@ -150,7 +160,7 @@ export default function HomePage() {
             <Link
               key={p.id}
               to={`/project/${p.slug}`}
-              className="min-w-[260px] max-w-[280px] shrink-0 overflow-hidden rounded-2xl border border-border bg-white shadow-soft"
+              className="min-w-65 max-w-70 shrink-0 overflow-hidden rounded-2xl border border-border bg-white shadow-soft"
             >
               <img src={p.heroImage} alt={p.name} className="h-36 w-full object-cover" />
               <div className="p-4">
@@ -166,7 +176,7 @@ export default function HomePage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6">
-        <Card className="flex flex-col items-start gap-4 bg-gradient-to-br from-ink to-ink-soft p-6 text-white sm:flex-row sm:items-center sm:justify-between">
+        <Card className="flex flex-col items-start gap-4 bg-linear-to-br from-ink to-ink-soft p-6 text-white sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-start gap-3">
             <div className="rounded-xl bg-white/10 p-3">
               <Calculator className="h-6 w-6 text-amber" />

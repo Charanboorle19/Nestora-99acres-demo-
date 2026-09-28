@@ -8,14 +8,14 @@ export default function SimilarCarousel({ listings = [] }) {
   if (!listings.length) return null
 
   const scroll = (dir) => {
-    ref.current?.scrollBy({ left: dir * 300, behavior: 'smooth' })
+    ref.current?.scrollBy({ left: dir * 280, behavior: 'smooth' })
   }
 
   return (
-    <section>
-      <div className="mb-4 flex items-center justify-between">
-        <h2 className="font-display text-xl font-semibold">Similar properties</h2>
-        <div className="flex gap-1">
+    <section className="min-w-0">
+      <div className="mb-3 flex items-center justify-between gap-2 sm:mb-4">
+        <h2 className="min-w-0 font-display text-lg font-semibold sm:text-xl">Similar properties</h2>
+        <div className="flex shrink-0 gap-1">
           <Button variant="secondary" size="icon" onClick={() => scroll(-1)} aria-label="Previous">
             <ChevronLeft className="h-4 w-4" />
           </Button>
@@ -24,9 +24,12 @@ export default function SimilarCarousel({ listings = [] }) {
           </Button>
         </div>
       </div>
-      <div ref={ref} className="flex gap-4 overflow-x-auto pb-2 scroll-smooth">
+      <div
+        ref={ref}
+        className="-mx-3 flex gap-3 overflow-x-auto px-3 pb-2 scrollbar-thin sm:mx-0 sm:gap-4 sm:px-0"
+      >
         {listings.map((l) => (
-          <div key={l.id} className="min-w-[260px] max-w-[280px] shrink-0">
+          <div key={l.id} className="w-[min(16.5rem,78vw)] shrink-0">
             <ListingCard listing={l} />
           </div>
         ))}

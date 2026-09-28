@@ -118,7 +118,7 @@ export default function SiteVisitModal({ open, onClose, listing }) {
                   type="button"
                   onClick={() => setDateIdx(i)}
                   className={cn(
-                    'min-w-[4.5rem] rounded-xl border px-3 py-2 text-center transition',
+                    'min-w-18 rounded-xl border px-3 py-2 text-center transition',
                     i === dateIdx ? 'border-ink bg-ink text-white' : 'border-border bg-white hover:border-ink/30',
                   )}
                 >

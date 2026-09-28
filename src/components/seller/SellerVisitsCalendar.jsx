@@ -64,7 +64,7 @@ export default function SellerVisitsCalendar() {
           >
             <ChevronLeft className="h-4 w-4" />
           </Button>
-          <div className="min-w-[9rem] text-center text-sm font-bold">
+          <div className="min-w-36 text-center text-sm font-bold">
             {cursor.toLocaleDateString('en-IN', { month: 'long', year: 'numeric' })}
           </div>
           <Button

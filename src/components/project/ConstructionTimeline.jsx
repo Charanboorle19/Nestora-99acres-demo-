@@ -11,7 +11,7 @@ export default function ConstructionTimeline({ timeline = [] }) {
           <li key={item.phase} className={cn('relative pb-8', i === timeline.length - 1 && 'pb-0')}>
             <span
               className={cn(
-                'absolute -left-[1.95rem] flex h-7 w-7 items-center justify-center rounded-full border-2 bg-white',
+                'absolute left-[-1.95rem] flex h-7 w-7 items-center justify-center rounded-full border-2 bg-white',
                 done && 'border-success text-success',
                 ongoing && 'border-amber text-amber',
                 !done && !ongoing && 'border-border text-ink-muted',

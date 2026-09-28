@@ -24,18 +24,43 @@
 
 @layer base {
   html {
-    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @keyframes page-slide-in {
+    from {
+      opacity: 0;
+      transform: translateX(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .page-slide-in {
+    animation: page-slide-in 0.32s ease-out;
   }
 
   body {
-    @apply m-0 min-h-screen bg-mist font-sans text-ink antialiased;
+    @apply m-0 min-h-screen overflow-x-hidden bg-mist font-sans text-ink antialiased;
     background-image:
       radial-gradient(ellipse 80% 50% at 10% -10%, rgba(232, 168, 56, 0.12), transparent),
       radial-gradient(ellipse 60% 40% at 100% 0%, rgba(11, 61, 92, 0.08), transparent);
   }
 
   #root {
-    @apply min-h-screen;
+    @apply min-h-screen overflow-x-hidden;
+  }
+
+  img,
+  video,
+  svg {
+    max-width: 100%;
+  }
+
+  table {
+    @apply w-full;
   }
 
   ::selection {
@@ -62,6 +87,14 @@
 
   .skeleton {
     @apply animate-pulse rounded-lg bg-fog/80;
+  }
+
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+
+  .safe-pb {
+    padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
   }
 }
 

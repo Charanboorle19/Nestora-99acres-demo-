@@ -176,24 +176,25 @@ export default function SearchPage() {
         />
       </div>
 
-      <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h1 className="font-display text-2xl font-semibold text-ink">
+      <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+        <div className="min-w-0">
+          <h1 className="font-display text-xl font-semibold text-ink sm:text-2xl">
             {filters.type === 'projects' ? 'New projects' : 'Properties'} in {cityName}
           </h1>
           <p className="text-sm text-ink-muted">
             {loading ? 'Searching…' : `${result.total} result${result.total === 1 ? '' : 's'}`}
           </p>
         </div>
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex w-full flex-wrap items-center gap-2 sm:w-auto">
           <Button variant="secondary" size="sm" className="md:hidden" onClick={() => setSheetOpen(true)}>
             <Filter className="h-4 w-4" /> Filters
           </Button>
-          <Button variant="secondary" size="sm" onClick={saveSearch}>
-            <BookmarkPlus className="h-4 w-4" /> Save search
+          <Button variant="secondary" size="sm" className="min-w-0 flex-1 sm:flex-none" onClick={saveSearch}>
+            <BookmarkPlus className="h-4 w-4 shrink-0" />
+            <span className="truncate">Save</span>
           </Button>
           <select
-            className="h-9 rounded-xl border border-border bg-white px-3 text-sm font-semibold"
+            className="h-9 min-w-0 flex-1 rounded-xl border border-border bg-white px-3 text-sm font-semibold sm:flex-none"
             value={filters.sort}
             onChange={(e) => commitFilters({ sort: e.target.value, page: 1 })}
           >
@@ -203,7 +204,7 @@ export default function SearchPage() {
               </option>
             ))}
           </select>
-          <div className="flex rounded-xl border border-border bg-white p-0.5">
+          <div className="ml-auto flex rounded-xl border border-border bg-white p-0.5 sm:ml-0">
             <button
               type="button"
               className={`rounded-lg p-2 ${filters.view === 'grid' ? 'bg-mist text-ink' : 'text-ink-muted'}`}
@@ -341,7 +342,7 @@ export default function SearchPage() {
         </div>
 
         {showMap && filters.type !== 'projects' && (
-          <div className="order-1 h-[420px] lg:sticky lg:top-20 lg:order-2 lg:h-[calc(100vh-7rem)]">
+          <div className="order-1 h-80 sm:h-105 lg:sticky lg:top-20 lg:order-2 lg:h-[calc(100vh-7rem)]">
             <SearchMap
               cityId={filters.cityId}
               listings={mapItems}

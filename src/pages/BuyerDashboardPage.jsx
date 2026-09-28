@@ -374,7 +374,7 @@ export default function BuyerDashboardPage() {
         )}
       </div>
 
-      <Card className="mt-8 flex flex-wrap items-center justify-between gap-3 bg-gradient-to-r from-ink to-ink-soft p-5 text-white">
+      <Card className="mt-8 flex flex-wrap items-center justify-between gap-3 bg-linear-to-r from-ink to-ink-soft p-5 text-white">
         <div>
           <div className="font-display text-lg font-semibold">Plan your budget</div>
           <div className="text-sm text-white/70">

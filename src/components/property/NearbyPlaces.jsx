@@ -33,13 +33,13 @@ export default function NearbyPlaces({ listing }) {
   const center = useMemo(() => [listing.lat, listing.lng], [listing.lat, listing.lng])
 
   return (
-    <Card className="overflow-hidden p-0">
-      <div className="border-b border-border p-5">
-        <h2 className="font-display text-xl font-semibold">Nearby places</h2>
+    <Card className="min-w-0 overflow-hidden p-0">
+      <div className="border-b border-border p-4 sm:p-5">
+        <h2 className="font-display text-lg font-semibold sm:text-xl">Nearby places</h2>
         <p className="text-sm text-ink-muted">Schools, hospitals, transit and malls near this home</p>
       </div>
-      <div className="grid gap-0 lg:grid-cols-2">
-        <div className="h-64 lg:h-80">
+      <div className="grid min-w-0 gap-0 lg:grid-cols-2">
+        <div className="h-52 min-w-0 sm:h-64 lg:h-80">
           <MapContainer center={center} zoom={14} className="h-full w-full" scrollWheelZoom={false}>
             <TileLayer
               attribution='&copy; OpenStreetMap'
@@ -62,19 +62,19 @@ export default function NearbyPlaces({ listing }) {
             ))}
           </MapContainer>
         </div>
-        <ul className="divide-y divide-border">
+        <ul className="max-h-64 divide-y divide-border overflow-y-auto lg:max-h-80">
           {places.map((p) => {
             const Icon = ICONS[p.type] || ShoppingBag
             return (
-              <li key={p.name} className="flex items-center gap-3 px-5 py-3">
-                <div className="rounded-xl bg-mist p-2 text-ink">
+              <li key={p.name} className="flex items-center gap-3 px-4 py-3 sm:px-5">
+                <div className="shrink-0 rounded-xl bg-mist p-2 text-ink">
                   <Icon className="h-4 w-4" />
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="truncate text-sm font-semibold">{p.name}</div>
                   <div className="text-xs capitalize text-ink-muted">{p.type}</div>
                 </div>
-                <div className="text-sm font-bold text-ink">{p.distanceKm.toFixed(1)} km</div>
+                <div className="shrink-0 text-sm font-bold text-ink">{p.distanceKm.toFixed(1)} km</div>
               </li>
             )
           })}

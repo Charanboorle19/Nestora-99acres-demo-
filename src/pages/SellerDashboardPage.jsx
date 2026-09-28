@@ -58,20 +58,20 @@ export default function SellerDashboardPage() {
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
-      <div className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <h1 className="font-display text-3xl font-semibold">Seller dashboard</h1>
-          <p className="text-sm capitalize text-ink-muted">
+    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8">
+      <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between">
+        <div className="min-w-0">
+          <h1 className="font-display text-2xl font-semibold sm:text-3xl">Seller dashboard</h1>
+          <p className="truncate text-sm capitalize text-ink-muted">
             {user.name} · {user.role}
           </p>
         </div>
-        <Button onClick={() => navigate('/post-property')}>
+        <Button className="w-full sm:w-auto" onClick={() => navigate('/post-property')}>
           <Plus className="h-4 w-4" /> Post property
         </Button>
       </div>
 
-      <div className="mt-6 flex gap-2 overflow-x-auto pb-1">
+      <div className="mt-6 flex gap-2 overflow-x-auto pb-1 scrollbar-thin">
         {NAV.map((item) => (
           <NavLink
             key={item.to}
@@ -79,7 +79,7 @@ export default function SellerDashboardPage() {
             end={item.end}
             className={({ isActive }) =>
               cn(
-                'inline-flex items-center gap-2 rounded-xl border px-3 py-2 text-sm font-semibold whitespace-nowrap',
+                'inline-flex shrink-0 items-center gap-2 rounded-xl border px-3 py-2 text-sm font-semibold whitespace-nowrap',
                 isActive ? 'border-ink bg-ink text-white' : 'border-border bg-white text-ink hover:border-ink/30',
               )
             }

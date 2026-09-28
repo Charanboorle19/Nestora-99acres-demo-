@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import {
   Bell,
@@ -22,11 +22,13 @@ const navLinkClass = ({ isActive }) =>
 export default function Header() {
   const [open, setOpen] = useState(false)
   const [bellOpen, setBellOpen] = useState(false)
+  const [userMenuOpen, setUserMenuOpen] = useState(false)
   const navigate = useNavigate()
   const { user, openLogin, logout } = useAuthStore()
   const shortlistCount = useShortlistStore((s) => s.ids.length)
   const { items, markAllRead, markRead, unreadCount } = useNotificationStore()
   const unread = unreadCount()
+  const menuRef = useRef(null)
 
   const dashboardPath =
     user?.role === 'buyer'
@@ -37,14 +39,39 @@ export default function Header() {
           ? '/seller'
           : '/dashboard'
 
+  useEffect(() => {
+    const onDoc = (e) => {
+      if (!menuRef.current?.contains(e.target)) {
+        setBellOpen(false)
+        setUserMenuOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', onDoc)
+    document.addEventListener('touchstart', onDoc)
+    return () => {
+      document.removeEventListener('mousedown', onDoc)
+      document.removeEventListener('touchstart', onDoc)
+    }
+  }, [])
+
+  const closeMenus = () => {
+    setOpen(false)
+    setBellOpen(false)
+    setUserMenuOpen(false)
+  }
+
   return (
     <header className="sticky top-0 z-40 border-b border-border/80 bg-white/90 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6">
-        <div className="flex items-center gap-3">
+      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-2 px-3 sm:h-16 sm:gap-3 sm:px-6">
+        <div className="flex min-w-0 items-center gap-2 sm:gap-3">
           <button
             type="button"
-            className="rounded-lg p-2 text-ink lg:hidden"
-            onClick={() => setOpen((v) => !v)}
+            className="shrink-0 rounded-lg p-2 text-ink lg:hidden"
+            onClick={() => {
+              setOpen((v) => !v)
+              setBellOpen(false)
+              setUserMenuOpen(false)
+            }}
             aria-label="Menu"
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -53,6 +80,9 @@ export default function Header() {
         </div>
 
         <nav className="hidden items-center gap-5 lg:flex">
+          <NavLink to="/" end className={navLinkClass}>
+            Home
+          </NavLink>
           <NavLink to="/search?type=buy" className={navLinkClass}>
             Buy
           </NavLink>
@@ -70,11 +100,11 @@ export default function Header() {
           </NavLink>
         </nav>
 
-        <div className="flex items-center gap-1 sm:gap-2">
+        <div className="flex shrink-0 items-center gap-0.5 sm:gap-2" ref={menuRef}>
           <Button
             variant="ghost"
             size="icon"
-            className="hidden sm:inline-flex"
+            className="sm:inline-flex"
             onClick={() => navigate('/search')}
             aria-label="Search"
           >
@@ -87,6 +117,7 @@ export default function Header() {
               size="icon"
               onClick={() => {
                 setBellOpen((v) => !v)
+                setUserMenuOpen(false)
                 markAllRead()
               }}
               aria-label="Notifications"
@@ -97,7 +128,7 @@ export default function Header() {
               )}
             </Button>
             {bellOpen && (
-              <div className="absolute right-0 mt-2 w-80 rounded-2xl border border-border bg-white p-3 shadow-lift">
+              <div className="absolute right-0 z-50 mt-2 w-[min(20rem,calc(100vw-1.5rem))] rounded-2xl border border-border bg-white p-3 shadow-lift">
                 <div className="mb-2 text-sm font-bold">Alerts</div>
                 <div className="max-h-72 space-y-2 overflow-y-auto">
                   {items.length === 0 && (
@@ -140,33 +171,48 @@ export default function Header() {
           </Button>
 
           {user ? (
-            <div className="relative group">
-              <Button variant="secondary" size="sm" className="gap-2">
+            <div className="relative">
+              <Button
+                variant="secondary"
+                size="sm"
+                className="gap-2"
+                onClick={() => {
+                  setUserMenuOpen((v) => !v)
+                  setBellOpen(false)
+                }}
+              >
                 <User className="h-4 w-4" />
-                <span className="hidden sm:inline max-w-[7rem] truncate">{user.name}</span>
+                <span className="hidden max-w-28 truncate sm:inline">{user.name}</span>
               </Button>
-              <div className="invisible absolute right-0 mt-2 w-52 rounded-2xl border border-border bg-white p-2 opacity-0 shadow-lift transition group-hover:visible group-hover:opacity-100">
-                <div className="px-3 py-2 text-xs text-ink-muted capitalize">{user.role}</div>
-                <Link
-                  to={dashboardPath}
-                  className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold hover:bg-mist"
-                >
-                  <LayoutDashboard className="h-4 w-4" /> Dashboard
-                </Link>
-                <Link
-                  to="/saved-searches"
-                  className="block rounded-xl px-3 py-2 text-sm font-semibold hover:bg-mist"
-                >
-                  Saved searches
-                </Link>
-                <button
-                  type="button"
-                  onClick={logout}
-                  className="w-full rounded-xl px-3 py-2 text-left text-sm font-semibold text-danger hover:bg-mist"
-                >
-                  Sign out
-                </button>
-              </div>
+              {userMenuOpen && (
+                <div className="absolute right-0 z-50 mt-2 w-52 rounded-2xl border border-border bg-white p-2 shadow-lift">
+                  <div className="px-3 py-2 text-xs text-ink-muted capitalize">{user.role}</div>
+                  <Link
+                    to={dashboardPath}
+                    onClick={closeMenus}
+                    className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold hover:bg-mist"
+                  >
+                    <LayoutDashboard className="h-4 w-4" /> Dashboard
+                  </Link>
+                  <Link
+                    to="/saved-searches"
+                    onClick={closeMenus}
+                    className="block rounded-xl px-3 py-2 text-sm font-semibold hover:bg-mist"
+                  >
+                    Saved searches
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      logout()
+                      closeMenus()
+                    }}
+                    className="w-full rounded-xl px-3 py-2 text-left text-sm font-semibold text-danger hover:bg-mist"
+                  >
+                    Sign out
+                  </button>
+                </div>
+              )}
             </div>
           ) : (
             <Button size="sm" onClick={() => openLogin()}>
@@ -177,23 +223,32 @@ export default function Header() {
       </div>
 
       {open && (
-        <div className="border-t border-border bg-white px-4 py-3 lg:hidden">
-          <div className="flex flex-col gap-2">
-            <Link to="/search?type=buy" onClick={() => setOpen(false)} className="rounded-lg px-2 py-2 text-sm font-semibold">
-              Buy
-            </Link>
-            <Link to="/search?type=rent" onClick={() => setOpen(false)} className="rounded-lg px-2 py-2 text-sm font-semibold">
-              Rent
-            </Link>
-            <Link to="/search?type=projects" onClick={() => setOpen(false)} className="rounded-lg px-2 py-2 text-sm font-semibold">
-              New Projects
-            </Link>
-            <Link to="/tools/emi" onClick={() => setOpen(false)} className="rounded-lg px-2 py-2 text-sm font-semibold">
-              EMI Tools
-            </Link>
-            <Link to="/post-property" onClick={() => setOpen(false)} className="rounded-lg px-2 py-2 text-sm font-semibold">
-              Post Property
-            </Link>
+        <div className="max-h-[70vh] overflow-y-auto border-t border-border bg-white px-4 py-3 lg:hidden">
+          <div className="flex flex-col gap-1">
+            {[
+              ['/', 'Home'],
+              ['/search?type=buy', 'Buy'],
+              ['/search?type=rent', 'Rent'],
+              ['/search?type=projects', 'New Projects'],
+              ['/tools/emi', 'EMI Tools'],
+              ['/tools/loan-eligibility', 'Loan eligibility'],
+              ['/post-property', 'Post Property'],
+              ['/shortlist', 'Shortlist'],
+              [user ? dashboardPath : null, 'Dashboard'],
+              ['/saved-searches', 'Saved searches'],
+              ['/seller', 'Seller dashboard'],
+            ]
+              .filter(([to]) => to)
+              .map(([to, label]) => (
+                <Link
+                  key={to + label}
+                  to={to}
+                  onClick={closeMenus}
+                  className="rounded-lg px-2 py-2.5 text-sm font-semibold active:bg-mist"
+                >
+                  {label}
+                </Link>
+              ))}
             <p className="px-2 pt-2 text-xs text-ink-muted">{BRAND.tagline}</p>
           </div>
         </div>

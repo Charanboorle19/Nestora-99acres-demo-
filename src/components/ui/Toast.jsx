@@ -12,7 +12,7 @@ export default function ToastViewport() {
   const { toasts, dismiss } = useToastStore()
 
   return (
-    <div className="pointer-events-none fixed bottom-4 right-4 z-[70] flex w-[min(100%-2rem,22rem)] flex-col gap-2">
+    <div className="pointer-events-none fixed inset-x-3 bottom-4 z-70 flex flex-col gap-2 sm:inset-x-auto sm:right-4 sm:w-[min(100%-2rem,22rem)]">
       {toasts.map((t) => {
         const Icon = icons[t.type] || Info
         return (

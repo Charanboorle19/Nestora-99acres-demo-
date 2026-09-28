@@ -161,7 +161,7 @@ export default function ShortlistPage() {
                 <tr className="border-b border-border bg-mist/60">
                   <th className="sticky left-0 bg-mist/60 px-4 py-3 text-left font-semibold">Feature</th>
                   {compared.map((l) => (
-                    <th key={l.id} className="min-w-[12rem] px-4 py-3 text-left">
+                    <th key={l.id} className="min-w-48 px-4 py-3 text-left">
                       <Link to={`/property/${l.id}`} className="font-bold text-ink hover:underline">
                         {l.title}
                       </Link>

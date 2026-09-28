@@ -80,37 +80,41 @@ export default function ProjectPage() {
           alt={project.name}
           className="absolute inset-0 h-full w-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/20" />
-        <div className="relative mx-auto flex min-h-[48vh] max-w-7xl flex-col justify-end px-4 pb-10 pt-24 sm:px-6">
+        <div className="absolute inset-0 bg-linear-to-t from-ink via-ink/55 to-ink/20" />
+        <div className="relative mx-auto flex min-h-[42vh] max-w-7xl flex-col justify-end px-4 pb-8 pt-20 sm:min-h-[48vh] sm:px-6 sm:pb-10 sm:pt-24">
           <div className="flex flex-wrap gap-2">
             <Badge tone="featured">{project.status}</Badge>
             <Badge tone="mist" className="bg-white/15 text-white">
               Possession {project.possession}
             </Badge>
           </div>
-          <h1 className="mt-3 font-display text-4xl font-semibold tracking-tight text-white sm:text-5xl">
+          <h1 className="mt-3 font-display text-3xl font-semibold tracking-tight text-white sm:text-5xl">
             {project.name}
           </h1>
-          <p className="mt-2 max-w-2xl text-white/80">
+          <p className="mt-2 max-w-2xl text-sm text-white/80 sm:text-base">
             by{' '}
             <Link to={`/builder/${builder?.slug || project.builderId}`} className="font-bold text-amber hover:underline">
               {project.builderName}
             </Link>{' '}
             · {project.localityName}, {cityName}
           </p>
-          <div className="mt-5 flex flex-wrap gap-2">
-            <Button variant="amber" onClick={() => document.getElementById('project-enquiry')?.scrollIntoView({ behavior: 'smooth' })}>
+          <div className="mt-5 flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:flex-wrap">
+            <Button
+              variant="amber"
+              className="w-full sm:w-auto"
+              onClick={() => document.getElementById('project-enquiry')?.scrollIntoView({ behavior: 'smooth' })}
+            >
               Enquire now
             </Button>
-            <Button variant="secondary" className="bg-white/95" onClick={downloadBrochure}>
+            <Button variant="secondary" className="w-full bg-white/95 sm:w-auto" onClick={downloadBrochure}>
               <Download className="h-4 w-4" /> Download brochure
             </Button>
           </div>
         </div>
       </section>
 
-      <div className="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:grid-cols-[minmax(0,1fr)_22rem]">
-        <div className="space-y-6">
+      <div className="mx-auto grid max-w-7xl gap-6 px-4 py-6 pb-8 sm:px-6 sm:py-8 lg:grid-cols-[minmax(0,1fr)_22rem]">
+        <div className="order-2 min-w-0 space-y-6 lg:order-1">
           <Card className="p-5">
             <h2 className="font-display text-xl font-semibold">Overview</h2>
             <p className="mt-3 text-sm leading-relaxed text-ink-muted">{project.overview}</p>
@@ -219,7 +223,7 @@ export default function ProjectPage() {
             <img
               src={project.gallery[galleryIdx]}
               alt=""
-              className="mt-4 aspect-[16/9] w-full rounded-2xl object-cover"
+              className="mt-4 aspect-video w-full rounded-2xl object-cover"
             />
             <div className="mt-3 flex gap-2 overflow-x-auto">
               {project.gallery.map((src, i) => (
@@ -264,8 +268,8 @@ export default function ProjectPage() {
           </div>
         </div>
 
-        <aside className="lg:sticky lg:top-20 lg:self-start">
-          <Card className="p-5">
+        <aside className="order-1 lg:order-2 lg:sticky lg:top-20 lg:self-start">
+          <Card className="p-4 sm:p-5">
             <div className="text-sm text-ink-muted">Starting from</div>
             <div className="text-2xl font-extrabold text-ink">
               {formatINR(project.priceList[0]?.priceFrom)}
