@@ -513,7 +513,7 @@ export default function LandingPage() {
           <div className="mt-4 flex w-full flex-col items-center justify-center gap-3 sm:flex-row">
             <a
               href={`tel:${BRAND.phoneTel}`}
-              className="hrp-btn hrp-btn-ink h-11 w-full max-w-[202px] rounded-full px-4 text-xs font-extrabold uppercase tracking-wide shadow-lg sm:w-auto"
+              className="hrp-btn hrp-btn-ink h-11 w-full max-w-50.5 rounded-full px-4 text-xs font-extrabold uppercase tracking-wide shadow-lg sm:w-auto"
             >
               <Phone className="h-4 w-4" />
               Call desk: {BRAND.phoneDisplay}
@@ -522,7 +522,7 @@ export default function LandingPage() {
               href={`https://wa.me/${BRAND.whatsapp}?text=${encodeURIComponent('Hi, I want to share my property details for listing.')}`}
               target="_blank"
               rel="noreferrer"
-              className="hrp-btn h-11 w-full max-w-[248px] rounded-full bg-white px-4 text-xs font-extrabold uppercase tracking-wide text-[var(--hrp-ink)] shadow-lg transition hover:bg-slate-50 sm:w-auto"
+              className="hrp-btn h-11 w-full max-w-62 rounded-full bg-white px-4 text-xs font-extrabold uppercase tracking-wide text-(--hrp-ink) shadow-lg transition hover:bg-slate-50 sm:w-auto"
             >
               <MessageCircle className="h-4 w-4 text-[#25D366]" />
               WhatsApp property details

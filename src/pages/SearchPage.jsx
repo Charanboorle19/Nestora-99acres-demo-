@@ -243,12 +243,12 @@ export default function SearchPage() {
 
       <div className={`mt-6 grid gap-6 ${showMap ? 'lg:grid-cols-[1fr_1.1fr]' : 'lg:grid-cols-[16rem_1fr]'}`}>
         {!showMap && (
-          <div className="hidden rounded-2xl border border-border bg-white p-4 shadow-soft md:block">
-            <SearchFilters
-              filters={filters}
-              onChange={(patch) => commitFilters(patch, { keepBounds: false })}
-              onClear={clearFilters}
-            />
+          <div className="hidden max-h-[calc(100vh-8rem)] overflow-y-auto rounded-2xl border border-border bg-white p-4 shadow-soft scrollbar-thin md:block">
+          <SearchFilters
+            filters={filters}
+            onChange={(patch) => commitFilters(patch, { keepBounds: false })}
+            onClear={clearFilters}
+          />
           </div>
         )}
 

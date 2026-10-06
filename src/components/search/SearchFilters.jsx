@@ -37,7 +37,7 @@ function ChipGroup({ options, value = [], onChange, capitalize }) {
   )
 }
 
-export default function SearchFilters({ filters, onChange, onClear, className }) {
+export default function SearchFilters({ filters, onChange, onClear, className, horizontal = false }) {
   const budget = priceBoundsForType(filters.type)
   const priceValue = [
     filters.minPrice ?? budget.min,
@@ -48,7 +48,14 @@ export default function SearchFilters({ filters, onChange, onClear, className })
   const patch = (partial) => onChange({ ...partial, page: 1 })
 
   return (
-    <aside className={cn('space-y-6', className)}>
+    <aside
+      className={cn(
+        horizontal
+          ? 'flex flex-wrap items-start gap-6 [&>div]:min-w-[12rem] [&>div]:flex-1'
+          : 'space-y-6',
+        className,
+      )}
+    >
       <div className="flex items-center justify-between">
         <h2 className="font-display text-lg font-semibold">Filters</h2>
         <button type="button" className="text-xs font-bold text-ink-muted hover:text-ink" onClick={onClear}>
