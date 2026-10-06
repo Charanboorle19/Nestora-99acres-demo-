@@ -121,7 +121,7 @@ export const useNotificationStore = create(
       items: [
         {
           id: 'n-welcome',
-          title: 'Welcome to Nestora',
+          title: 'Welcome to High Rise Properties',
           body: 'Explore homes across Hyderabad, Bengaluru, Mumbai, Pune and Delhi NCR.',
           read: false,
           createdAt: new Date().toISOString(),

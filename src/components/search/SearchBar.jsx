@@ -89,10 +89,13 @@ export default function SearchBar({
           setOpen(false)
           onSubmit?.()
         }}
-        className={cn('mt-3 grid gap-2', compact ? 'sm:grid-cols-[9rem_1fr_auto]' : 'sm:grid-cols-[10rem_1fr_auto]')}
+        className={cn('grid gap-2', compact ? 'mt-2 sm:grid-cols-[9rem_1fr_auto]' : 'mt-3 sm:grid-cols-[10rem_1fr_auto]')}
       >
         <select
-          className="h-12 w-full rounded-xl border border-border bg-white px-3 text-sm font-semibold outline-none"
+          className={cn(
+            'w-full rounded-xl border border-border bg-white px-3 text-sm font-semibold outline-none',
+            compact ? 'h-10' : 'h-12',
+          )}
           value={cityId}
           onChange={(e) => {
             onCityChange?.(e.target.value)
@@ -107,7 +110,12 @@ export default function SearchBar({
         </select>
 
         <div className="relative min-w-0">
-          <div className="flex min-h-12 flex-wrap items-center gap-1 rounded-xl border border-border bg-white px-2 py-1.5 focus-within:border-ink">
+          <div
+            className={cn(
+              'flex flex-wrap items-center gap-1 rounded-xl border border-border bg-white px-2',
+              compact ? 'min-h-10 py-0.5' : 'min-h-12 py-1',
+            )}
+          >
             {selectedLocalities.map((id) => (
               <span
                 key={id}
@@ -124,7 +132,10 @@ export default function SearchBar({
               </span>
             ))}
             <input
-              className="min-w-0 flex-1 border-0 bg-transparent px-2 py-1.5 text-sm outline-none sm:min-w-32"
+              className={cn(
+                'min-w-0 flex-1 border-0 bg-transparent px-2 text-sm outline-none sm:min-w-32',
+                compact ? 'py-1' : 'py-1.5',
+              )}
               placeholder={selectedLocalities.length ? 'Add another locality…' : 'Locality, project or builder'}
               value={query}
               onChange={(e) => {
@@ -195,7 +206,7 @@ export default function SearchBar({
           )}
         </div>
 
-        <Button type="submit" size="lg" className="h-12 w-full sm:w-auto">
+        <Button type="submit" size={compact ? 'md' : 'lg'} className={cn('w-full sm:w-auto', compact ? 'h-10' : 'h-12')}>
           Search
         </Button>
       </form>

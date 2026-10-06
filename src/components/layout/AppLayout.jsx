@@ -6,16 +6,17 @@ import ToastViewport from '../ui/Toast'
 
 export default function AppLayout() {
   const { pathname, search } = useLocation()
+  const isLanding = pathname === '/'
 
   return (
     <div className="flex min-h-screen flex-col">
-      <Header />
+      {!isLanding && <Header />}
       <main className="flex-1 overflow-x-hidden">
-        <div key={`${pathname}${search}`} className="page-slide-in">
+        <div key={`${pathname}${search}`} className={isLanding ? undefined : 'page-slide-in'}>
           <Outlet />
         </div>
       </main>
-      <Footer />
+      {!isLanding && <Footer />}
       <LoginModal />
       <ToastViewport />
     </div>

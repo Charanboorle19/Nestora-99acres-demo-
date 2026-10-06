@@ -10,7 +10,7 @@ export default function EmiCalculatorPage() {
   const years = Number(params.get('years')) || 20
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
+    <div className="w-full px-2 py-8 sm:px-3">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="font-display text-3xl font-semibold">EMI calculator</h1>

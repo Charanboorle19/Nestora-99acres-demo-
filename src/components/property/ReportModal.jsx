@@ -46,7 +46,7 @@ export default function ReportModal({ open, onClose, listing }) {
       }
     >
       <div className="space-y-3">
-        <p className="text-sm text-ink-muted">Help us keep Nestora trustworthy. This is a mock report flow.</p>
+        <p className="text-sm text-ink-muted">Help us keep High Rise Properties trustworthy. This is a mock report flow.</p>
         <div className="flex flex-col gap-2">
           {REASONS.map((r) => (
             <button

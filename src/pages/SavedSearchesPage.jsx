@@ -45,7 +45,7 @@ export default function SavedSearchesPage() {
   }
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6">
+    <div className="w-full px-2 py-8 sm:px-3">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="font-display text-3xl font-semibold">Saved searches</h1>

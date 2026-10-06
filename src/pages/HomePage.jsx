@@ -65,7 +65,7 @@ export default function HomePage() {
               'linear-gradient(120deg, rgba(11,61,92,0.92) 0%, rgba(11,61,92,0.72) 45%, rgba(11,61,92,0.45) 100%), url(https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1800&q=80)',
           }}
         />
-        <div className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-24">
+        <div className="relative w-full px-4 py-12 sm:px-6 sm:py-24">
           <p className="font-display text-4xl font-semibold tracking-tight text-white sm:text-6xl">
             {BRAND.name}
           </p>
@@ -76,8 +76,9 @@ export default function HomePage() {
             Search buy, rent, PG and new projects across Hyderabad, Bengaluru, Mumbai, Pune and Delhi NCR.
           </p>
 
-          <Card className="mt-6 max-w-4xl overflow-visible border-0 p-3 sm:mt-8 sm:p-4">
+          <Card className="mt-6 max-w-3xl overflow-visible border-0 p-3 sm:mt-8">
             <SearchBar
+              compact
               tab={tab}
               onTabChange={setTab}
               cityId={cityId}
@@ -95,7 +96,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
+      <section className="w-full px-4 py-12 sm:px-6">
         <div className="mb-6 flex items-end justify-between gap-3">
           <div>
             <h2 className="font-display text-2xl font-semibold text-ink">Featured homes</h2>
@@ -122,7 +123,7 @@ export default function HomePage() {
       </section>
 
       <section className="bg-white/60 py-12">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="w-full px-4 sm:px-6">
           <h2 className="font-display text-2xl font-semibold text-ink">Popular localities</h2>
           <p className="text-sm text-ink-muted">In {CITIES.find((c) => c.id === cityId)?.name}</p>
           <div className="-mx-4 mt-6 flex gap-3 overflow-x-auto px-4 pb-2 scrollbar-thin sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-3 sm:overflow-visible sm:px-0 sm:pb-0 md:grid-cols-3">
@@ -145,7 +146,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
+      <section className="w-full px-4 py-12 sm:px-6">
         <div className="mb-6 flex items-end justify-between">
           <div>
             <h2 className="font-display text-2xl font-semibold">New projects</h2>
@@ -175,7 +176,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6">
+      <section className="w-full px-4 pb-16 sm:px-6">
         <Card className="flex flex-col items-start gap-4 bg-linear-to-br from-ink to-ink-soft p-6 text-white sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-start gap-3">
             <div className="rounded-xl bg-white/10 p-3">

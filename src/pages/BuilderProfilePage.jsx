@@ -34,7 +34,7 @@ export default function BuilderProfilePage() {
 
   if (loading) {
     return (
-      <div className="mx-auto max-w-5xl space-y-4 px-4 py-10">
+      <div className="w-full space-y-4 px-2 py-10 sm:px-3">
         <Skeleton className="h-32 w-full" />
         <Skeleton className="h-48 w-full" />
       </div>
@@ -53,7 +53,7 @@ export default function BuilderProfilePage() {
   }
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
+    <div className="w-full px-2 py-8 sm:px-3">
       <Card className="overflow-hidden p-0">
         <div className="bg-linear-to-br from-ink to-ink-soft px-6 py-10 text-white">
           <div className="flex flex-wrap items-start gap-4">
@@ -63,7 +63,7 @@ export default function BuilderProfilePage() {
             <div>
               <h1 className="font-display text-3xl font-semibold sm:text-4xl">{builder.name}</h1>
               <p className="mt-2 max-w-2xl text-sm text-white/75">
-                Trusted Nestora partner since {builder.established}. Crafting residences across{' '}
+                Trusted High Rise Properties partner since {builder.established}. Crafting residences across{' '}
                 {builder.cityIds.map((id) => CITIES.find((c) => c.id === id)?.name).filter(Boolean).join(', ')}.
               </p>
               <div className="mt-4 flex flex-wrap gap-3 text-sm">
@@ -83,7 +83,7 @@ export default function BuilderProfilePage() {
       </Card>
 
       <div className="mt-8">
-        <h2 className="font-display text-2xl font-semibold">Projects on Nestora</h2>
+        <h2 className="font-display text-2xl font-semibold">Projects on High Rise Properties</h2>
         <p className="text-sm text-ink-muted">{builder.projects.length} live microsites</p>
         <div className="mt-5 grid gap-4 sm:grid-cols-2">
           {builder.projects.map((p) => (

@@ -46,7 +46,7 @@ export default function ProjectPage() {
     return (
       <div className="space-y-4">
         <Skeleton className="h-[42vh] w-full rounded-none" />
-        <div className="mx-auto max-w-7xl space-y-4 px-4 py-6">
+        <div className="w-full space-y-4 px-2 py-6 sm:px-3">
           <Skeleton className="h-10 w-72" />
           <Skeleton className="h-40 w-full" />
         </div>
@@ -81,7 +81,7 @@ export default function ProjectPage() {
           className="absolute inset-0 h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-linear-to-t from-ink via-ink/55 to-ink/20" />
-        <div className="relative mx-auto flex min-h-[42vh] max-w-7xl flex-col justify-end px-4 pb-8 pt-20 sm:min-h-[48vh] sm:px-6 sm:pb-10 sm:pt-24">
+        <div className="relative flex min-h-[42vh] w-full flex-col justify-end px-2 pb-8 pt-20 sm:min-h-[48vh] sm:px-3 sm:pb-10 sm:pt-24">
           <div className="flex flex-wrap gap-2">
             <Badge tone="featured">{project.status}</Badge>
             <Badge tone="mist" className="bg-white/15 text-white">
@@ -113,7 +113,7 @@ export default function ProjectPage() {
         </div>
       </section>
 
-      <div className="mx-auto grid max-w-7xl gap-6 px-4 py-6 pb-8 sm:px-6 sm:py-8 lg:grid-cols-[minmax(0,1fr)_22rem]">
+      <div className="grid w-full gap-6 px-2 py-6 pb-8 sm:px-3 sm:py-8 lg:grid-cols-[minmax(0,1fr)_22rem]">
         <div className="order-2 min-w-0 space-y-6 lg:order-1">
           <Card className="p-5">
             <h2 className="font-display text-xl font-semibold">Overview</h2>

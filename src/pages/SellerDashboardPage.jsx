@@ -58,7 +58,7 @@ export default function SellerDashboardPage() {
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8">
+    <div className="w-full px-2 py-6 sm:px-3 sm:py-8">
       <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between">
         <div className="min-w-0">
           <h1 className="font-display text-2xl font-semibold sm:text-3xl">Seller dashboard</h1>

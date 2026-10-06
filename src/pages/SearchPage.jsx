@@ -130,7 +130,7 @@ export default function SearchPage() {
       .filter(Boolean)
       .join(' · ')
     addSavedSearch({
-      label: label || 'Nestora search',
+      label: label || 'High Rise Properties search',
       frequency: 'daily',
       queryString: filtersToSearchParams({ ...filters, q: draftQuery, localities: draftLocalities }).toString(),
       filters: { ...filters, q: draftQuery, localities: draftLocalities },
@@ -156,7 +156,7 @@ export default function SearchPage() {
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
+    <div className="w-full px-2 py-6 sm:px-3">
       <div className="rounded-2xl border border-border bg-white p-3 shadow-soft sm:p-4">
         <SearchBar
           tab={filters.type}

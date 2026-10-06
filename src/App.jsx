@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import AppLayout from './components/layout/AppLayout'
 import ScrollToTop from './components/layout/ScrollToTop'
-import HomePage from './pages/HomePage'
+import LandingPage from './pages/LandingPage'
 import SearchPage from './pages/SearchPage'
 import PropertyDetailPage from './pages/PropertyDetailPage'
 import ShortlistPage from './pages/ShortlistPage'
@@ -20,7 +20,7 @@ export default function App() {
       <ScrollToTop />
       <Routes>
         <Route element={<AppLayout />}>
-          <Route index element={<HomePage />} />
+          <Route index element={<LandingPage />} />
           <Route path="search" element={<SearchPage />} />
           <Route path="property/:id" element={<PropertyDetailPage />} />
           <Route path="shortlist" element={<ShortlistPage />} />

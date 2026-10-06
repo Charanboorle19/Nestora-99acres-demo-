@@ -1,7 +1,12 @@
 export const BRAND = {
-  name: 'Nestora',
-  tagline: 'Homes that fit your life',
+  name: 'High Rise Properties',
+  tagline: "Hyderabad's Property Advisor",
   otp: '123456',
+  phoneDisplay: '62817 36957',
+  phoneTel: '+916281736957',
+  whatsapp: '916281736957',
+  instagram: 'https://www.instagram.com/highrisepropertieshyd/',
+  instagramHandle: '@highrisepropertieshyd',
 }
 
 export const CITIES = [

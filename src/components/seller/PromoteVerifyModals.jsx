@@ -121,7 +121,7 @@ export function VerifyModal({ open, onClose, listing, onDone }) {
       }
     >
       <p className="text-sm text-ink-muted">
-        Upload a mock ownership / authority letter. Nestora demo auto-approves and grants a Verified badge.
+        Upload a mock ownership / authority letter. High Rise Properties demo auto-approves and grants a Verified badge.
       </p>
       <label className="mt-4 flex cursor-pointer flex-col items-center rounded-2xl border border-dashed border-border bg-mist/60 px-4 py-8">
         <span className="text-sm font-semibold">{fileName || 'Choose PDF / image'}</span>

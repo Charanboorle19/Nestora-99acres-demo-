@@ -249,7 +249,7 @@ export default function PostPropertyWizard() {
   }
 
   return (
-    <div className="mx-auto max-w-4xl space-y-6">
+    <div className="w-full space-y-6">
       <Stepper steps={STEPS} current={step} />
 
       <Card className="p-5 sm:p-6">

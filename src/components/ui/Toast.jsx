@@ -51,6 +51,6 @@ export function useToast() {
   return {
     success: (message, title = 'Success') => push({ type: 'success', title, message }),
     error: (message, title = 'Something went wrong') => push({ type: 'error', title, message }),
-    info: (message, title = 'Nestora') => push({ type: 'info', title, message }),
+    info: (message, title = 'High Rise Properties') => push({ type: 'info', title, message }),
   }
 }

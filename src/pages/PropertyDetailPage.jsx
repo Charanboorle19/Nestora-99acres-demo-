@@ -66,7 +66,7 @@ export default function PropertyDetailPage() {
 
   if (loading) {
     return (
-      <div className="mx-auto max-w-7xl space-y-4 px-3 py-6 sm:px-6">
+      <div className="w-full space-y-4 px-2 py-6 sm:px-3">
         <Skeleton className="h-8 w-48" />
         <Skeleton className="aspect-4/3 w-full sm:aspect-16/10" />
         <Skeleton className="h-40 w-full" />
@@ -117,7 +117,7 @@ export default function PropertyDetailPage() {
   ]
 
   return (
-    <div className="mx-auto max-w-7xl px-3 py-4 pb-28 sm:px-6 sm:py-6 lg:pb-8">
+    <div className="w-full px-2 py-4 pb-28 sm:px-3 sm:py-6 lg:pb-8">
       <div className="grid min-w-0 gap-5 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-8 xl:grid-cols-[minmax(0,1fr)_22rem]">
         {/* Main column */}
         <div className="min-w-0 space-y-4 sm:space-y-6">
