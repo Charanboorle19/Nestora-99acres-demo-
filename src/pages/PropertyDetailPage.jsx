@@ -133,8 +133,8 @@ export default function PropertyDetailPage() {
             <div className="flex flex-wrap gap-1.5">
               {listing.featured && <Badge tone="featured">Featured</Badge>}
               {listing.verified && <Badge tone="verified">Verified</Badge>}
-              <Badge tone="mist" className="capitalize">
-                {listing.listingType}
+              <Badge tone="amber">
+                {listing.listingType === 'sale' ? 'For Sale' : 'For Lease'}
               </Badge>
             </div>
             <h1 className="mt-2 wrap-break-word font-display text-xl font-semibold leading-snug text-ink sm:text-2xl lg:text-3xl">

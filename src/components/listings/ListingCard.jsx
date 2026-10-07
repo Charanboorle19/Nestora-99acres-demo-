@@ -10,6 +10,7 @@ export default function ListingCard({ listing, layout = 'grid', selected, onSele
   const shortlist = useShortlistStore()
   const toast = useToast()
   const saved = shortlist.has(listing.id)
+  const listingStatus = listing.listingType === 'sale' ? 'For Sale' : 'For Lease'
 
   const toggleSave = (e) => {
     e.preventDefault()
@@ -39,6 +40,7 @@ export default function ListingCard({ listing, layout = 'grid', selected, onSele
               <div className="text-xl font-extrabold text-ink">{formatINR(listing.price)}</div>
               <div className="mt-1 font-semibold text-ink group-hover:underline">{listing.title}</div>
             </Link>
+            <Badge tone="amber" className="shrink-0 whitespace-nowrap">{listingStatus}</Badge>
             <Button variant="ghost" size="icon" onClick={toggleSave} aria-label="Shortlist">
               <Heart className={cn('h-5 w-5', saved && 'fill-danger text-danger')} />
             </Button>
@@ -93,7 +95,10 @@ export default function ListingCard({ listing, layout = 'grid', selected, onSele
         </button>
       </Link>
       <Link to={`/property/${listing.id}`} className="block p-4" onClick={onSelect}>
-        <div className="text-lg font-extrabold text-ink">{formatINR(listing.price)}</div>
+        <div className="flex items-start justify-between gap-2">
+          <div className="text-lg font-extrabold text-ink">{formatINR(listing.price)}</div>
+          <Badge tone="amber" className="shrink-0 whitespace-nowrap">{listingStatus}</Badge>
+        </div>
         <div className="mt-1 line-clamp-1 font-semibold text-ink">{listing.title}</div>
         <div className="mt-1 flex items-center gap-1 text-sm text-ink-muted">
           <MapPin className="h-3.5 w-3.5 shrink-0" />
