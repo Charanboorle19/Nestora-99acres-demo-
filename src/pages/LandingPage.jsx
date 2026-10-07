@@ -32,14 +32,15 @@ import PromoteModal from '../components/landing/PromoteModal'
 import { BRAND } from '../utils/constants'
 import '../components/landing/landing.css'
 
-function buildSearchPath({ type = 'sale', area = '', category = '' } = {}) {
+function buildSearchPath({ type = 'sale', area = '', category = '', query = '' } = {}) {
   const params = new URLSearchParams()
   params.set('city', 'hyderabad')
   if (type === 'lease') params.set('type', 'rent')
   else if (type === 'commercial') params.set('type', 'commercial')
   else params.set('type', 'buy')
 
-  if (area) params.set('q', area)
+  if (query) params.set('q', query)
+  else if (area) params.set('q', area)
 
   if (category) {
     if (category.toLowerCase().includes('plot')) params.set('propertyType', 'Plot')
@@ -53,6 +54,12 @@ function buildSearchPath({ type = 'sale', area = '', category = '' } = {}) {
   return `/search?${params.toString()}`
 }
 
+const HERO_SEARCH_KEYWORDS = [
+  { label: 'Lease properties in Hyderabad', type: 'lease' },
+  { label: 'Properties for sale in Hyderabad', type: 'sale' },
+  ...LANDING_AREAS.map((area) => ({ label: `Properties near ${area}`, area })),
+]
+
 export default function LandingPage() {
   const navigate = useNavigate()
   const toast = useToast()
@@ -60,6 +67,9 @@ export default function LandingPage() {
   const [type, setType] = useState('sale')
   const [area, setArea] = useState('')
   const [category, setCategory] = useState('')
+  const [query, setQuery] = useState('')
+  const [keywordMenuOpen, setKeywordMenuOpen] = useState(false)
+  const [highlightedKeyword, setHighlightedKeyword] = useState(0)
   const [requirementLead, setRequirementLead] = useState(null)
   const [leadName, setLeadName] = useState('')
   const [leadPhone, setLeadPhone] = useState('')
@@ -104,7 +114,38 @@ export default function LandingPage() {
 
   const runSearch = (e) => {
     e?.preventDefault()
-    navigate(buildSearchPath({ type, area, category }))
+    navigate(buildSearchPath({ type, area, category, query: query.trim() }))
+  }
+
+  const matchingKeywords = query.trim()
+    ? HERO_SEARCH_KEYWORDS.filter((keyword) => keyword.label.toLowerCase().includes(query.trim().toLowerCase())).slice(0, 6)
+    : []
+
+  const selectKeyword = (keyword) => {
+    setQuery(keyword.label)
+    if (keyword.type) setType(keyword.type)
+    if (keyword.area) setArea(keyword.area)
+    setKeywordMenuOpen(false)
+    setHighlightedKeyword(0)
+  }
+
+  const handleKeywordKeyDown = (e) => {
+    if (!keywordMenuOpen || matchingKeywords.length === 0) {
+      if (e.key === 'ArrowDown' && query.trim()) setKeywordMenuOpen(true)
+      return
+    }
+    if (e.key === 'ArrowDown') {
+      e.preventDefault()
+      setHighlightedKeyword((current) => (current + 1) % matchingKeywords.length)
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault()
+      setHighlightedKeyword((current) => (current - 1 + matchingKeywords.length) % matchingKeywords.length)
+    } else if (e.key === 'Enter') {
+      e.preventDefault()
+      selectKeyword(matchingKeywords[highlightedKeyword])
+    } else if (e.key === 'Escape') {
+      setKeywordMenuOpen(false)
+    }
   }
 
   return (
@@ -177,6 +218,45 @@ export default function LandingPage() {
             </div>
             <div className="hrp-search-fields">
               <label className="hrp-search-field">
+                <span>Search location or property</span>
+                <input
+                  type="search"
+                  className="hrp-input"
+                  value={query}
+                  onChange={(e) => {
+                    setQuery(e.target.value)
+                    setHighlightedKeyword(0)
+                    setKeywordMenuOpen(Boolean(e.target.value.trim()))
+                  }}
+                  onFocus={() => setKeywordMenuOpen(Boolean(query.trim()))}
+                  onBlur={() => window.setTimeout(() => setKeywordMenuOpen(false), 120)}
+                  onKeyDown={handleKeywordKeyDown}
+                  placeholder="e.g. lease properties near Miyapur"
+                  aria-label="Search location or property"
+                  aria-autocomplete="list"
+                  aria-controls="hero-keyword-options"
+                  aria-expanded={keywordMenuOpen && matchingKeywords.length > 0}
+                />
+                {keywordMenuOpen && matchingKeywords.length > 0 && (
+                  <div id="hero-keyword-options" className="hrp-keyword-menu" role="listbox" aria-label="Matching property searches">
+                    {matchingKeywords.map((keyword, index) => (
+                      <button
+                        key={keyword.label}
+                        type="button"
+                        className={`hrp-keyword-option${index === highlightedKeyword ? ' is-highlighted' : ''}`}
+                        role="option"
+                        aria-selected={index === highlightedKeyword}
+                        onMouseDown={(e) => e.preventDefault()}
+                        onClick={() => selectKeyword(keyword)}
+                      >
+                        <Search className="h-3.5 w-3.5" />
+                        <span>{keyword.label}</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </label>
+              <label className="hrp-search-field">
                 <span>Looking for</span>
                 <select className="hrp-select" value={type} onChange={(e) => setType(e.target.value)}>
                   <option value="sale">For Sale</option>
@@ -206,6 +286,16 @@ export default function LandingPage() {
               </button>
             </div>
           </form>
+          <div className="hrp-hero-keywords" aria-label="Popular property searches">
+            <span className="hrp-hero-keywords-label">Popular searches</span>
+            <div className="hrp-hero-keywords-list">
+              {HERO_SEARCH_KEYWORDS.map((keyword) => (
+                <Link key={keyword.label} to={buildSearchPath(keyword)} className="hrp-hero-keyword">
+                  {keyword.label}
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 

@@ -6,6 +6,30 @@ import { CITIES } from '../utils/constants'
 
 const wait = (ms = 350) => delay(ms + Math.floor(Math.random() * 250))
 
+const SEARCH_STOP_WORDS = new Set([
+  'a',
+  'an',
+  'for',
+  'in',
+  'near',
+  'of',
+  'properties',
+  'property',
+  'sale',
+  'lease',
+  'rent',
+  'buy',
+  'hyderabad',
+])
+
+function meaningfulSearchTerms(query) {
+  return String(query)
+    .toLowerCase()
+    .split(/[^a-z0-9]+/)
+    .map((term) => term.trim())
+    .filter((term) => term && !SEARCH_STOP_WORDS.has(term))
+}
+
 function applyFilters(items, filters = {}) {
   let result = [...items]
 
@@ -34,14 +58,16 @@ function applyFilters(items, filters = {}) {
   if (filters.minArea != null) result = result.filter((l) => l.area >= Number(filters.minArea))
   if (filters.maxArea != null) result = result.filter((l) => l.area <= Number(filters.maxArea))
   if (filters.q) {
-    const q = String(filters.q).toLowerCase()
-    result = result.filter(
-      (l) =>
-        l.title.toLowerCase().includes(q) ||
-        l.localityName.toLowerCase().includes(q) ||
-        l.address.toLowerCase().includes(q) ||
-        l.postedBy?.name?.toLowerCase().includes(q),
-    )
+    const terms = meaningfulSearchTerms(filters.q)
+    if (terms.length) {
+      result = result.filter((l) => {
+        const searchableText = [l.title, l.localityName, l.address, l.postedBy?.name]
+          .filter(Boolean)
+          .join(' ')
+          .toLowerCase()
+        return terms.every((term) => searchableText.includes(term))
+      })
+    }
   }
   if (filters.bounds) {
     const { north, south, east, west } = filters.bounds
